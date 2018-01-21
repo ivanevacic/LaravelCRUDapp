@@ -9,6 +9,7 @@
             <div class="panel-body">
                 {!!Form::open(['action' => 'ListingsController@store','method' => 'POST'])!!}
                   {{Form::bsText('name', '', ['placeholder' => 'Company Name'])}}
+                  {{Form::bsText('website', '', ['placeholder' => 'Company Website'])}}
                   {{Form::bsText('email', '', ['placeholder' => 'Company Email'])}}
                   {{Form::bsText('phone', '', ['placeholder' => 'Contact Phone'])}}
                   {{Form::bsText('adress', '', ['placeholder' => 'Business Adress'])}}

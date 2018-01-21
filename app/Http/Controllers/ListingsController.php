@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Listing;
 
 class ListingsController extends Controller
 {
@@ -34,7 +35,32 @@ class ListingsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validation
+        $this->validate($request, [
+            'name' => 'required',
+            'website' => 'required',
+            'email' => 'email',
+            'phone' => 'required',
+            'adress' => 'required',
+            'bio' => 'required'
+        ]);
+
+        //Create new listing with form input
+        $listing = new Listing;
+        $listing->name = $request->input('name');
+        $listing->website = $request->input('website');
+        $listing->email = $request->input('email');
+        $listing->phone = $request->input('phone');
+        $listing->adress = $request->input('adress');
+        $listing->bio = $request->input('bio');
+
+        //Logged in user id
+        $listing->user_id = auth()->user()->id;    
+        //Save listing to DB
+        $listing->save();
+        //Redirect
+        return redirect('/dashboard')->with('success', 'Listing added');
+
     }
 
     /**
