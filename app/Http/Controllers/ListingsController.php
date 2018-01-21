@@ -81,8 +81,10 @@ class ListingsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {  
+        //Show current values of listing we are trying to edit
+        $listing = Listing::find($id);
+        return view('editlisting')->with('listing', $listing);
     }
 
     /**
@@ -94,7 +96,31 @@ class ListingsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Validation
+        $this->validate($request, [
+            'name' => 'required',
+            'website' => 'required',
+            'email' => 'email',
+            'phone' => 'required',
+            'adress' => 'required',
+            'bio' => 'required'
+        ]);
+
+        //Create new listing with form input
+        $listing = Listing::find($id);
+        $listing->name = $request->input('name');
+        $listing->website = $request->input('website');
+        $listing->email = $request->input('email');
+        $listing->phone = $request->input('phone');
+        $listing->adress = $request->input('adress');
+        $listing->bio = $request->input('bio');
+
+        //Logged in user id
+        $listing->user_id = auth()->user()->id;    
+        //Save listing to DB
+        $listing->save();
+        //Redirect
+        return redirect('/dashboard')->with('success', 'Listing updated');
     }
 
     /**
