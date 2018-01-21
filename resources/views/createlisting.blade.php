@@ -7,7 +7,14 @@
             <div class="panel-heading">Create listing</div>
 
             <div class="panel-body">
-                
+                {!!Form::open(['action' => 'ListingsController@store','method' => 'POST'])!!}
+                  {{Form::bsText('name', '', ['placeholder' => 'Company Name'])}}
+                  {{Form::bsText('email', '', ['placeholder' => 'Company Email'])}}
+                  {{Form::bsText('phone', '', ['placeholder' => 'Contact Phone'])}}
+                  {{Form::bsText('adress', '', ['placeholder' => 'Business Adress'])}}
+                  {{Form::bsTextArea('bio', '', ['placeholder' => 'About'])}}
+                  {{Form::bsSubmit('submit')}}
+                {!!Form::close() !!}
             </div>
         </div>
     </div>
